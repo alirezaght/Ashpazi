@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_height="100dp" android:id="@+id/itemLayout">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" android:id="@+id/itemrel1"
+        android:gravity="center_vertical|center|center_horizontal"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="New Text"
+            android:id="@+id/itemText"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentRight="false"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical|center_horizontal" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/itemrel2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|right"
+        android:layout_toRightOf="@+id/itemrel1"
+        android:layout_alignParentRight="false"
+        android:gravity="right">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:id="@+id/itemImage"
+            android:layout_gravity="right"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+</RelativeLayout>
