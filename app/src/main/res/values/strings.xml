@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Ashpazi</string>
+    <string name="app_name">FooDy</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string-array name="category">
-        <item>انواع دسر</item>
-        <item>انواع پیش غذا</item>
-        <item>غذای اصلی</item>
-        <item>انواع نان و شیرینی</item>
-        <item>چی می تونم بپذم؟</item>
+        <item>
+            انتخاب غذا
+        </item>
+        <item>
+            تنضیمات
+        </item>
+        <item>
+            چی میتونم بپذم؟
+        </item>
     </string-array>
 
 

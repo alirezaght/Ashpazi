@@ -1,6 +1,7 @@
 package com.cross.helper;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -12,6 +13,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Navit on 1/24/2015.
@@ -21,7 +24,7 @@ public class Dao extends SQLiteOpenHelper {
 
     private static String DB_NAME = "ashpazi";
 
-    private SQLiteDatabase db;
+    private static SQLiteDatabase db;
 
     private final Context context;
     public Dao(Context context){
@@ -60,23 +63,18 @@ public class Dao extends SQLiteOpenHelper {
         try{
             String myPath = DB_PATH + DB_NAME;
             checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
-            if(checkDB!=null&&checkDB.rawQuery("select version from version",null).getString(1).equals(MainActivity.version))
+            Cursor c=checkDB.rawQuery("select version from version",null);
+            c.moveToFirst();
+            if(c.getString(0).equals(MainActivity.version))
                 return true;
-            else return false;
+            return false;
 
-        }catch(SQLiteException e){
+        }catch(Exception e){
 
-            //database does't exist yet.
-
-        }
-
-        if(checkDB != null){
-
-            checkDB.close();
+            return false;
 
         }
 
-        return checkDB != null ? true : false;
     }
     private void copyDataBase() throws IOException{
 
@@ -128,5 +126,24 @@ public class Dao extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i2) {
 
+    }
+    public List<Recepient> getElements(String query){
+        final List<Recepient> list=new LinkedList<Recepient>();
+        final Cursor c=db.rawQuery(query,null);
+        if(c!=null) {
+            c.moveToFirst();
+            while (c.isAfterLast() == false) {
+                final Recepient r=new Recepient();
+                r.id=c.getLong(0);
+                r.name=c.getString(1);
+                r.avalie=c.getString(2);
+                r.dastur=c.getString(3);
+                r.ax=c.getString(4);
+                r.type=c.getInt(5);
+                list.add(r);
+                c.moveToNext();
+            }
+        }
+        return list;
     }
 }

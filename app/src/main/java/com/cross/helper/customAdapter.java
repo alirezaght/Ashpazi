@@ -13,33 +13,33 @@ import android.widget.TextView;
 
 import com.cross.ashpazi.R;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
  * Created by Navit on 1/24/2015.
  */
 public class customAdapter extends BaseAdapter {
-    public Drawable[] imageSrc;
-    public String[] itemText;
+    public List<Recepient> list;
     public Context context;
-    public customAdapter(Context context,Drawable[] imageSrc,String[] itemText){
+    public customAdapter(Context context,List<Recepient> list){
         this.context=context;
-        this.imageSrc=imageSrc;
-        this.itemText=itemText;
+        this.list=list;
+
     }
     @Override
     public int getCount() {
-        return itemText.length;
+        return list.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return itemText[i];
+        return list.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return itemText[i].hashCode();
+        return list.get(i).hashCode();
     }
 
     @Override
@@ -48,8 +48,13 @@ public class customAdapter extends BaseAdapter {
             view=LayoutInflater.from(context).inflate(R.layout.item,viewGroup,false);
         ImageView img= (ImageView) view.findViewById(R.id.itemImage);
         TextView tv= (TextView) view.findViewById(R.id.itemText);
-        tv.setText(itemText[i]);
-        img.setImageDrawable(imageSrc[i]);
+        tv.setText(list.get(i).name);
+        try {
+            Drawable d = Drawable.createFromStream(context.getAssets().open(list.get(i).ax), null);
+            img.setImageDrawable(d);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return view;
     }
