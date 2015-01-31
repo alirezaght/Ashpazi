@@ -3,6 +3,7 @@ package com.cross.ashpazi;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -24,7 +25,22 @@ public class DetailActivity extends Activity {
         TextView dastur= (TextView) findViewById(R.id.textView2);
         Recepient r= (Recepient) getIntent().getExtras().getSerializable("recepient");
         try {
-            Drawable d = Drawable.createFromStream(getAssets().open(r.ax), null);
+            DisplayMetrics metrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(metrics);
+            String preFix="xhdp_";
+            switch(metrics.densityDpi){
+                case DisplayMetrics.DENSITY_LOW:
+                    preFix="ldp_";
+                    break;
+                case DisplayMetrics.DENSITY_MEDIUM:
+                    preFix="mdp_";
+                    break;
+                case DisplayMetrics.DENSITY_HIGH:
+                    preFix="hdp_";
+                    break;
+
+            }
+            Drawable d = Drawable.createFromStream(getAssets().open(preFix+r.ax), null);
             img.setImageDrawable(d);
         } catch (IOException e) {
             e.printStackTrace();

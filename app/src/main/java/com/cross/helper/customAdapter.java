@@ -4,9 +4,11 @@ package com.cross.helper;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,9 +24,11 @@ import java.util.List;
 public class customAdapter extends BaseAdapter {
     public List<Recepient> list;
     public Context context;
-    public customAdapter(Context context,List<Recepient> list){
+    private WindowManager windowManager;
+    public customAdapter(Context context,WindowManager windowManager,List<Recepient> list){
         this.context=context;
         this.list=list;
+        this.windowManager=windowManager;
 
     }
     @Override
@@ -50,7 +54,22 @@ public class customAdapter extends BaseAdapter {
         TextView tv= (TextView) view.findViewById(R.id.itemText);
         tv.setText(list.get(i).name);
         try {
-            Drawable d = Drawable.createFromStream(context.getAssets().open(list.get(i).ax), null);
+            DisplayMetrics metrics = new DisplayMetrics();
+            windowManager.getDefaultDisplay().getMetrics(metrics);
+            String preFix="xhdp_";
+            switch(metrics.densityDpi){
+                case DisplayMetrics.DENSITY_LOW:
+                    preFix="ldp_";
+                    break;
+                case DisplayMetrics.DENSITY_MEDIUM:
+                    preFix="mdp_";
+                    break;
+                case DisplayMetrics.DENSITY_HIGH:
+                    preFix="hdp_";
+                    break;
+
+            }
+            Drawable d = Drawable.createFromStream(context.getAssets().open(preFix+list.get(i).ax), null);
             img.setImageDrawable(d);
         } catch (IOException e) {
             e.printStackTrace();

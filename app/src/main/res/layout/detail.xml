@@ -5,12 +5,13 @@
 
     <RelativeLayout
         android:id="@+id/relTop"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="50dp">
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/imageView"
             android:layout_alignParentRight="true" />
 
@@ -25,7 +26,7 @@
 
     <RelativeLayout
         android:id="@+id/relDown"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/relTop">
 

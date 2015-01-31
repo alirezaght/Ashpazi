@@ -29,7 +29,7 @@ public class IraniActivity extends Activity {
         setContentView(R.layout.category);
         ListView listView= (ListView) findViewById(R.id.listView);
         List<Recepient> recepients=MainActivity.dao.getElements("select * from recepients where type=0");
-        listView.setAdapter(new customAdapter(this,recepients));
+        listView.setAdapter(new customAdapter(this,getWindowManager(),recepients));
         listView.setOnItemClickListener(new ItemClickListener(this));
 
     }
